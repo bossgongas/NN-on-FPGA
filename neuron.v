@@ -41,6 +41,7 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
     reg muxValid_d;
     reg muxValid_f;
     reg addr=0;
+
    //Loading weight values into the memory
     always @(posedge clk)
     begin
@@ -92,12 +93,13 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
             r_addr <= r_addr + 1;
     end
     
+   // multiplication do peso com o imput
     always @(posedge clk)
     begin
         mul  <= $signed(myinputd) * $signed(w_out);
     end
     
-    
+   // ComboAdd and BiasAdd
     always @(posedge clk)
     begin
         if(rst|outvalid)
@@ -146,7 +148,7 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
     end
     
     
-    //Instantiation of Memory for Weights - WEIGHT_MEMORY BLOCK - weight_memory.v
+    //Instantiation of Memory for Weights - WEIGHT_MEMORY BLOCK - weight_memory.v ////////////
     Weight_Memory #(.numWeight(numWeight),.neuronNo(neuronNo),.layerNo(layerNo),.addressWidth(addressWidth),.dataWidth(dataWidth),.weightFile(weightFile)) WM(
         .clk(clk),
         .wen(wen),
@@ -157,6 +159,7 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
         .wout(w_out)
     );
     
+   //Activation Function 
     generate
         if(actType == "sigmoid")
         begin:siginst

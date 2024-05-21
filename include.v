@@ -1,4 +1,4 @@
-`define pretrained
+`define pretrained //rede pretreinada - weight memory funciona como uma ROM - Caso contrario funciona como uma RAM
 `define numLayers 5
 `define dataWidth 31
 `define numNeuronLayer1 30

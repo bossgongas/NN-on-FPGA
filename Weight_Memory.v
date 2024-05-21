@@ -16,13 +16,13 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
     
     reg [dataWidth-1:0] mem [numWeight-1:0]; //inicialização do buffer
 
-    // no nosso caso a rede será sempre pre treinada - entao vamos ler de file para mem.
+    // no nosso caso a rede será sempre pre treinada - entao vamos ler de file para mem. - Funciona como uma ROM
     `ifdef pretrained
         initial
 		begin
 	        $readmemb(weightFile, mem); // ler para o buffer
 	    end
-    // caso os pesos nao sejas pre treinados
+    // c
 	`else
 		always @(posedge clk)
 		begin
@@ -32,7 +32,7 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
 			end
 		end 
     `endif
-    
+
     // colocar do buffer para a saida
     always @(posedge clk)
     begin
