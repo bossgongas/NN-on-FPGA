@@ -146,7 +146,7 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
     end
     
     
-    //Instantiation of Memory for Weights
+    //Instantiation of Memory for Weights - WEIGHT_MEMORY BLOCK - weight_memory.v
     Weight_Memory #(.numWeight(numWeight),.neuronNo(neuronNo),.layerNo(layerNo),.addressWidth(addressWidth),.dataWidth(dataWidth),.weightFile(weightFile)) WM(
         .clk(clk),
         .wen(wen),
