@@ -342,6 +342,7 @@ end
 reg [`numNeuronLayer4*`dataWidth-1:0] holdData_5;
 assign axi_rd_data = holdData_5[`dataWidth-1:0];
 
+//Ler diretamente do output IMPORTANTE!!! CADA CLOCK LE DE NEURONIOS DIFERENTES
 always @(posedge s_axi_aclk)
     begin
         if (o4_valid[0] == 1'b1)
