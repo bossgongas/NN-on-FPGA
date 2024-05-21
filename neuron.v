@@ -166,7 +166,7 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
         //Instantiation of ROM for sigmoid
             Sig_ROM #(.inWidth(sigmoidSize),.dataWidth(dataWidth)) s1(
             .clk(clk),
-            .x(sum[2*dataWidth-1-:sigmoidSize]),
+            .x(sum[2*dataWidth-1-:sigmoidSize]), // sending only the upper bits - Sigmoid size
             .out(out)
         );
         end
