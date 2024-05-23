@@ -3,7 +3,7 @@ import json
 dataWidth = 100
 dataIntWidth = 1
 weightIntWidth = 4
-inputFile = "WeightsAndBiases.txt"
+inputFile = "weightsandbias.txt"
 dataFracWidth = dataWidth-dataIntWidth
 weightFracWidth = dataWidth-weightIntWidth
 biasIntWidth = dataIntWidth+weightIntWidth
