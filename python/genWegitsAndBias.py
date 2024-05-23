@@ -1,6 +1,6 @@
 import json
 
-dataWidth = 100
+dataWidth = 16
 dataIntWidth = 1
 weightIntWidth = 4
 inputFile = "weightsandbias.txt"
