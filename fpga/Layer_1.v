@@ -13,7 +13,6 @@ module Layer_1 #(parameter NN = 30,numWeight=784,dataWidth=16,layerNum=1,sigmoid
     output [NN-1:0]     o_valid,
     output [NN*dataWidth-1:0]  x_out
     );
-//instanciar os 30 neuronios.
 neuron #(.numWeight(numWeight),.layerNo(layerNum),.neuronNo(0),.dataWidth(dataWidth),.sigmoidSize(sigmoidSize),.weightIntWidth(weightIntWidth),.actType(actType),.weightFile("w_1_0.mif"),.biasFile("b_1_0.mif"))n_0(
         .clk(clk),
         .rst(rst),

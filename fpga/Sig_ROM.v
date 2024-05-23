@@ -1,6 +1,22 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Module Name: Sig_ROM - look upo table com os valores de sigmoid
+// Company: 
+// Engineer: 
+// 
+// Create Date: 11.02.2019 18:36:19
+// Design Name: 
+// Module Name: Sig_ROM
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
 //////////////////////////////////////////////////////////////////////////////////
 
 

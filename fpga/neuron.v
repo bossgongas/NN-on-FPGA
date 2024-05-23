@@ -1,10 +1,12 @@
 `timescale 1ns / 1ps
-/////////////////////////////////
-///////// NEURON ////////////////
-/////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+// Module Name: perceptron
+//////////////////////////////////////////////////////////////////////////////////
+//`define DEBUG
 `include "include.v"
+`include "config.vh"
 
-module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoidSize=5,weightIntWidth=1,actType="relu",biasFile="",weightFile="")(
+module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoidSize=10,weightIntWidth=4,actType="relu",biasFile="",weightFile="")(
     input           clk,
     input           rst,
     input [dataWidth-1:0]    myinput,
@@ -41,8 +43,9 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
     reg muxValid_d;
     reg muxValid_f;
     reg addr=0;
-
-   //Loading weight values into the memory
+    
+   
+   //Loading weight values into the momory
     always @(posedge clk)
     begin
         if(rst)
@@ -59,17 +62,16 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
         else
             wen <= 0;
     end
-
+	
     assign mux_valid = mult_valid;
     assign comboAdd = mul + sum;
     assign BiasAdd = bias + sum;
     assign ren = myinputValid;
     
-    `ifdef pretrained
-        initial
-        begin
-            //$readmemb(biasFile,biasReg); não funciona desta forma
-            case (layerNo)
+	`ifdef pretrained
+		initial
+		begin
+			case (layerNo)
 				0: case (neuronNo) // Layer 0 with 30 neurons
 						0: $readmemb(`BIAS_FILE_0_0, biasReg);
 						1: $readmemb(`BIAS_FILE_0_1, biasReg);
@@ -150,20 +152,20 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
 						0: $readmemb(`BIAS_FILE_3_0, biasReg);
 				   endcase
 			endcase
-        end
-        always @(posedge clk)
-        begin
+		end
+		always @(posedge clk)
+		begin
             bias <= {biasReg[addr][dataWidth-1:0],{dataWidth{1'b0}}};
         end
-    `else
-        always @(posedge clk)
-        begin
-            if(biasValid & (config_layer_num==layerNo) & (config_neuron_num==neuronNo))
-            begin
-                bias <= {biasValue[dataWidth-1:0],{dataWidth{1'b0}}};
-            end
-        end
-    `endif
+	`else
+		always @(posedge clk)
+		begin
+			if(biasValid & (config_layer_num==layerNo) & (config_neuron_num==neuronNo))
+			begin
+				bias <= {biasValue[dataWidth-1:0],{dataWidth{1'b0}}};
+			end
+		end
+	`endif
     
     
     always @(posedge clk)
@@ -174,13 +176,12 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
             r_addr <= r_addr + 1;
     end
     
-   // multiplication do peso com o imput
     always @(posedge clk)
     begin
         mul  <= $signed(myinputd) * $signed(w_out);
     end
     
-   // ComboAdd and BiasAdd
+    
     always @(posedge clk)
     begin
         if(rst|outvalid)
@@ -229,7 +230,7 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
     end
     
     
-    //Instantiation of Memory for Weights - WEIGHT_MEMORY BLOCK - weight_memory.v ////////////
+    //Instantiation of Memory for Weights
     Weight_Memory #(.numWeight(numWeight),.neuronNo(neuronNo),.layerNo(layerNo),.addressWidth(addressWidth),.dataWidth(dataWidth),.weightFile(weightFile)) WM(
         .clk(clk),
         .wen(wen),
@@ -240,14 +241,13 @@ module neuron #(parameter layerNo=0,neuronNo=0,numWeight=784,dataWidth=16,sigmoi
         .wout(w_out)
     );
     
-   //Activation Function 
     generate
         if(actType == "sigmoid")
         begin:siginst
         //Instantiation of ROM for sigmoid
             Sig_ROM #(.inWidth(sigmoidSize),.dataWidth(dataWidth)) s1(
             .clk(clk),
-            .x(sum[2*dataWidth-1-:sigmoidSize]), // sending only the upper bits - Sigmoid size
+            .x(sum[2*dataWidth-1-:sigmoidSize]),
             .out(out)
         );
         end

@@ -3,6 +3,7 @@
 // Module Name: Weight_Memory
 //////////////////////////////////////////////////////////////////////////////////
 `include "include.v"
+`include "config.vh"
 
 module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidth=10,dataWidth=16,weightFile="w_1_15.mif") 
     ( 
@@ -14,9 +15,9 @@ module Weight_Memory #(parameter numWeight = 3, neuronNo=5,layerNo=1,addressWidt
     input [dataWidth-1:0] win,
     output reg [dataWidth-1:0] wout);
     
-    reg [dataWidth-1:0] mem [numWeight-1:0]; //inicializa√ß√£o do buffer
+    reg [dataWidth-1:0] mem [numWeight-1:0]; //inicializaÁ„o do buffer
 
-    // no nosso caso a rede ser√° sempre pre treinada - entao vamos ler de file para mem. - Funciona como uma ROM
+    // no nosso caso a rede ser· sempre pre treinada - entao vamos ler de file para mem. - Funciona como uma ROM
     `ifdef pretrained
         initial
 		begin

@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Module Name: top_layer 
+// Module Name: top_layer
 //////////////////////////////////////////////////////////////////////////////////
 `include "include.v"
 
@@ -40,6 +40,7 @@ module zyNet #(
     output wire                             intr
 );
 
+
 wire [31:0]  config_layer_num;
 wire [31:0]  config_neuron_num;
 wire [31:0] weightValue;
@@ -54,6 +55,7 @@ wire softReset;
 
 assign intr = out_valid;
 assign axis_in_data_ready = 1'b1;
+
 
 axi_lite_wrapper # ( 
     .C_S_AXI_DATA_WIDTH(C_S_AXI_DATA_WIDTH),
@@ -95,7 +97,7 @@ axi_lite_wrapper # (
 
 wire reset;
 
-assign reset = ~s_axi_aresetn;
+assign reset = ~s_axi_aresetn|softReset;
 
 localparam IDLE = 'd0,
            SEND = 'd1;
@@ -342,7 +344,6 @@ end
 reg [`numNeuronLayer4*`dataWidth-1:0] holdData_5;
 assign axi_rd_data = holdData_5[`dataWidth-1:0];
 
-//Ler diretamente do output IMPORTANTE!!! CADA CLOCK LE DE NEURONIOS DIFERENTES
 always @(posedge s_axi_aclk)
     begin
         if (o4_valid[0] == 1'b1)
@@ -353,7 +354,7 @@ always @(posedge s_axi_aclk)
         end
     end
 
-// Soft Max
+
 maxFinder #(.numInput(`numNeuronLayer4),.inputWidth(`dataWidth))
     mFind(
         .i_clk(s_axi_aclk),
@@ -362,5 +363,4 @@ maxFinder #(.numInput(`numNeuronLayer4),.inputWidth(`dataWidth))
         .o_data(out),
         .o_data_valid(out_valid)
     );
-
 endmodule

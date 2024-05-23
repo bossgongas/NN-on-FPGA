@@ -1,4 +1,4 @@
-module Layer_4 #(parameter NN = 30,numWeight=784,dataWidth=16,layerNum=1,sigmoidSize=10,weightIntWidth=4,actType="sigmoid")
+module Layer_4 #(parameter NN = 30,numWeight=784,dataWidth=16,layerNum=1,sigmoidSize=10,weightIntWidth=4,actType="relu")
     (
     input           clk,
     input           rst,
@@ -26,19 +26,5 @@ neuron #(.numWeight(numWeight),.layerNo(layerNum),.neuronNo(0),.dataWidth(dataWi
         .myinputValid(x_valid),
         .out(x_out[0*dataWidth+:dataWidth]),
         .outvalid(o_valid[0])
-        );
-neuron #(.numWeight(numWeight),.layerNo(layerNum),.neuronNo(1),.dataWidth(dataWidth),.sigmoidSize(sigmoidSize),.weightIntWidth(weightIntWidth),.actType(actType),.weightFile("w_4_1.mif"),.biasFile("b_4_1.mif"))n_1(
-        .clk(clk),
-        .rst(rst),
-        .myinput(x_in),
-        .weightValid(weightValid),
-        .biasValid(biasValid),
-        .weightValue(weightValue),
-        .biasValue(biasValue),
-        .config_layer_num(config_layer_num),
-        .config_neuron_num(config_neuron_num),
-        .myinputValid(x_valid),
-        .out(x_out[1*dataWidth+:dataWidth]),
-        .outvalid(o_valid[1])
         );
 endmodule
