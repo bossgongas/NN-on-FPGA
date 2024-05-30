@@ -38,8 +38,9 @@ x_test = x_test.reshape(-1, 28, 28, 1)
 
 model = tf.keras.models.Sequential()
 model.add(tf.keras.layers.Flatten())
-model.add(tf.keras.layers.Dense(128, activation=tf.nn.sigmoid))
-model.add(tf.keras.layers.Dense(64, activation=tf.nn.sigmoid))
+model.add(tf.keras.layers.Dense(30, activation=tf.nn.sigmoid))
+model.add(tf.keras.layers.Dense(30, activation=tf.nn.sigmoid))
+model.add(tf.keras.layers.Dense(10, activation=tf.nn.sigmoid))
 model.add(tf.keras.layers.Dense(1, activation=tf.nn.sigmoid))
 
 model.compile(optimizer='adam',
