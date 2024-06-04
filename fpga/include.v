@@ -1,6 +1,6 @@
 `define pretrained //rede pretreinada - weight memory funciona como uma ROM - Caso contrario funciona como uma RAM
 `define numLayers 5
-`define dataWidth 31
+`define dataWidth 16
 `define numNeuronLayer1 30
 `define numWeightLayer1 784
 `define Layer1ActType "sigmoid"
@@ -13,8 +13,8 @@
 `define numNeuronLayer4 10
 `define numWeightLayer4 10
 `define Layer4ActType "sigmoid"
-`define numNeuronLayer5 2
-`define numWeightLayer5 10
+`define numNeuronLayer5 1
+`define numWeightLayer5 1
 `define Layer5ActType "hardmax"
 `define sigmoidSize 5
-`define weightIntWidth 1
+`define weightIntWidth 4
