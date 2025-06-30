@@ -22,7 +22,7 @@ module top_sim(
     reg [7:0] fileName[23:0]; // nome do ficheiro de onde se le dados de entrada, pesos e bias
     
     reg s_axi_awvalid;       // Master: Indica que o endereço de escrita é válido
-    reg [31:0] s_axi_awaddr; // Master: Contém o endereço de escrita
+    reg [4:0] s_axi_awaddr;//reg [32:0] s_axi_awaddr; // Master: Contém o endereço de escrita
     wire s_axi_awready;      // Slave: Indica que o escravo está pronto para receber o endereço de escrita
     reg [31:0] s_axi_wdata;  // Master: Contém os dados de escrita
     reg s_axi_wvalid;        // Master: Indica que os dados de escrita são válidos
@@ -33,7 +33,7 @@ module top_sim(
     wire intr;               // Slave: Indica quando a classificação está completa
 
     reg [31:0] axiRdData;    // Master: Armazena os dados lidos da interface AXI
-    reg [31:0] s_axi_araddr; // Master: Contém o endereço de leitura
+    reg [4:0] s_axi_araddr;//reg [31:0] s_axi_araddr; // Master: Contém o endereço de leitura
     wire [31:0] s_axi_rdata; // Slave: Contém os dados lidos
     reg s_axi_arvalid;       // Master: Indica que o endereço de leitura é válido
     wire s_axi_arready;      // Slave: Indica que o escravo está pronto para receber o endereço de leitura
@@ -47,11 +47,11 @@ module top_sim(
     assign numNeurons[1] = 30;
     assign numNeurons[2] = 30;
     assign numNeurons[3] = 10;
-    assign numNeurons[4] = 1;
+    assign numNeurons[4] = 10;
     assign numWeights[1] = 784;
     assign numWeights[2] = 30;
     assign numWeights[3] = 30;
-    assign numWeights[4] = 1;
+    assign numWeights[4] = 10;
     
     integer right = 0; // numero de classificaçoes corretas
     integer wrong = 0; // incorretas
@@ -243,10 +243,20 @@ module top_sim(
                             endcase
                         3: case (j)
                             0: $readmemb(`WEIGHT_FILE_3_0, config_mem);
+                            1: $readmemb(`WEIGHT_FILE_3_1, config_mem);
+                            2: $readmemb(`WEIGHT_FILE_3_2, config_mem);
+                            3: $readmemb(`WEIGHT_FILE_3_3, config_mem);
+                            4: $readmemb(`WEIGHT_FILE_3_4, config_mem);
+                            5: $readmemb(`WEIGHT_FILE_3_5, config_mem);
+                            6: $readmemb(`WEIGHT_FILE_3_6, config_mem);
+                            7: $readmemb(`WEIGHT_FILE_3_7, config_mem);
+                            8: $readmemb(`WEIGHT_FILE_3_8, config_mem);
+                            9: $readmemb(`WEIGHT_FILE_3_9, config_mem);
                             endcase
                     endcase
                     for (t = 0; t < numWeights[k]; t = t + 1) begin
                         writeAxi(0, {15'd0, config_mem[t]});
+                        $display("Configuring Weight - Layer: %0d, Neuron: %0d, Weight: %0d, Value: %h", k, j, t, config_mem[t]);
                     end
                 end
             end
@@ -343,9 +353,20 @@ module top_sim(
                             endcase
                         3: case (j)
                             0: $readmemb(`BIAS_FILE_3_0, bias);
+                            1: $readmemb(`BIAS_FILE_3_1, bias);
+                            2: $readmemb(`BIAS_FILE_3_2, bias);
+                            3: $readmemb(`BIAS_FILE_3_3, bias);
+                            4: $readmemb(`BIAS_FILE_3_4, bias);
+                            5: $readmemb(`BIAS_FILE_3_5, bias);
+                            6: $readmemb(`BIAS_FILE_3_6, bias);
+                            7: $readmemb(`BIAS_FILE_3_7, bias);
+                            8: $readmemb(`BIAS_FILE_3_8, bias);
+                            9: $readmemb(`BIAS_FILE_3_9, bias);
                             endcase
                     endcase
                     writeAxi(4, {15'd0, bias[0]});
+                    $display("Configuring Bias - Layer: %0d, Neuron: %0d, Value: %h", k, j, bias[0]);
+
                 end
             end
         end

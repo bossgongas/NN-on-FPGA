@@ -3,7 +3,7 @@ import json
 dataWidth = 16
 dataIntWidth = 1
 weightIntWidth = 4
-inputFile = "weightsandbias.txt"
+inputFile = "weights_and_bias.txt"
 dataFracWidth = dataWidth-dataIntWidth
 weightFracWidth = dataWidth-weightIntWidth
 biasIntWidth = dataIntWidth+weightIntWidth
@@ -38,7 +38,7 @@ def genWaitAndBias(dataWidth,weightFracWidth,biasFracWidth,inputFile):
 	weightHeaderFile.write("int weightValues[]={")
 	for layer in range(0,len(myWeights)):
 		for neuron in range(0,len(myWeights[layer])):
-			fi = 'w_'+str(layer+1)+'_'+str(neuron)+'.mif'
+			fi = 'w_'+str(layer+1)+'_'+str(neuron)+'.txt'
 			f = open(outputPath+fi,'w')
 			for weight in range(0,len(myWeights[layer][neuron])):
 				if 'e' in str(myWeights[layer][neuron][weight]):
@@ -60,7 +60,7 @@ def genWaitAndBias(dataWidth,weightFracWidth,biasFracWidth,inputFile):
 	biasHeaderFile.write("int biasValues[]={")
 	for layer in range(0,len(myBiases)):
 		for neuron in range(0,len(myBiases[layer])):
-			fi = 'b_'+str(layer+1)+'_'+str(neuron)+'.mif'
+			fi = 'b_'+str(layer+1)+'_'+str(neuron)+'.txt'
 			p = myBiases[layer][neuron][0]
 			if 'e' in str(p): #To remove very small values with exponents
 				res = '0'
