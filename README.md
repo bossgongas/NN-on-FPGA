@@ -34,8 +34,8 @@ The project aims to explore the feasibility of deploying a neural network direct
    - Fixed-point arithmetic
 4. **Output**: Binary classification displayed via LEDs or VGA
 
-![Overview of FPGA neuron](<img width="376" alt="neuron" src="https://github.com/user-attachments/assets/bcd59f94-ae94-4e09-8ca0-8ea72bf61ea7" />
-) <!-- Add an actual overview diagram here -->
+![Overview of FPGA neuron]<img width="376" alt="neuron" src="https://github.com/user-attachments/assets/bcd59f94-ae94-4e09-8ca0-8ea72bf61ea7" />
+
 
 ---
 
