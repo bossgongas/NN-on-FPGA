@@ -4,10 +4,10 @@ This project aimed to implement a **Multi-Layer Perceptron (MLP)** neural networ
 unfortunately it was not completed, due to the high complexity of implementing neurons and interconnecting them on the de2 board using only HW, 
 using a more state of the art board and hardware-software co-design would be easier.
 
-> 📚 **Course**: PDigital Systems Design (PSD)  
+> 📚 **Course**: Digital Systems Design (PSD)  
 > 🏫 **Institution**: Universidade de Coimbra – DEEC  
 > 🧠 **Supervision**: Prof. Jorge Dias  
-> 👥 **Authors**: Gonçalo Bastos (2020238997), Leonardo Cordeiro (2020228071)
+> 👥 **Authors**: Gonçalo Bastos - eusoudebastos@gmail.com, Leonardo Cordeiro - leoleocordeiro@gmail.com
 
 ---
 
